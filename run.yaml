@@ -21,3 +21,7 @@ steps:
   - 'COMMAND=ls -la' 
   - 'INSTANCE_NAME=test-vm-4'
   - 'INSTANCE_ARGS=--image-family=centos-7 --image-project=centos-cloud'
+  
+options:
+ pool:
+  name: 'projects/fuse-cd-poc/locations/us-central1/workerPools/test-pool'
