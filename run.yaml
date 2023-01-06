@@ -1,3 +1,23 @@
-  steps:
-  - name: 'bash'
-    args: ['echo', 'I am running in a private pool!']
+substitutions:
+  _PROJECT_ID: 'fuse-cd-poc'
+
+steps:
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - 'config' 
+  - 'set' 
+  - 'project'
+  - '${_PROJECT_ID}'
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - 'iam' 
+  - 'service-accounts' 
+  - 'list'
+
+- name: 'gcr.io/${_PROJECT_ID}/remote-builder'
+  env: 
+  - 'COMMAND=ls -la' 
+  - 'INSTANCE_NAME=test-vm-4'
+  - 'INSTANCE_ARGS=--image-family=centos-7 --image-project=centos-cloud'
