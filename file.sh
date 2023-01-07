@@ -1,1 +1,1 @@
-touch random.txt
+echo "running in vm"
