@@ -1,11 +1,14 @@
 on:
   workflow_dispatch: # Trigger manually 
+    inputs:
+      tag_name:
+      committish:
 
-name: Create Release
+name: Create_Release
 
 jobs:
   build:
-    name: Create Release
+    name: Create_Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -15,9 +18,11 @@ jobs:
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+          TAG_NAME: ${{ github.event.inputs.tag_name }}
+          COMMITTISH: ${{ github.event.inputs.committish }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: $TAG_NAME
+          release_name: Release $COMMITTISH
           body: |
             Changes in this Release
             - First Change
